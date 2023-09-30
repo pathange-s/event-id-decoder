@@ -42,6 +42,9 @@ const (
 	getRoomInfo
 	updateRoomInfo
 	closeRoom
+	LivestreamingStartedEvent
+	LivestreamingStoppedEvent
+	LivestreamingErroredEvent
 	getStagePeers
 	getStageRequests
 	requestStageAccess
@@ -146,6 +149,12 @@ func getRoomMessageEventName(eventID int32) string {
 		return "updateRoomInfo"
 	case closeRoom:
 		return "closeRoom"
+	case LivestreamingStartedEvent:
+		return "LivestreamingStartedEvent"
+	case LivestreamingStoppedEvent:
+		return "LivestreamingStoppedEvent"
+	case LivestreamingErroredEvent:
+		return "LivestreamingErroredEvent"
 	case getStagePeers:
 		return "getStagePeers"
 	case getStageRequests:

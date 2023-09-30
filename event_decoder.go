@@ -16,10 +16,10 @@ func GetEventTypeName(eventID int32) string {
 
 	switch service {
 	case SocketHubEvent:
-		serviceName = "SocketHubEvent"
+		serviceName = "socketHubEvent"
 		domainName, eventName = getSocketHubDomainAndEventName(eventID)
 	case MediaHubEvent:
-		serviceName = "MediaHubEvent"
+		serviceName = "mediaHubEvent"
 		domainName, eventName = getMediaHubDomainAndEventName(eventID)
 	default:
 		return "Unknown Service"

@@ -42,6 +42,34 @@ const (
 	getRoomInfo
 	updateRoomInfo
 	closeRoom
+	getStagePeers
+	getStageRequests
+	requestStageAccess
+	cancelStageRequest
+	grantStageAccess
+	denyStageAccess
+	roomCountBroadcast
+	joinStage
+	leaveStage
+	getConnectedRoomsDump
+	createConnectedRooms
+	deleteConnectedRooms
+	movePeers
+	transferPeer
+	movedPeer
+	connectedRoomsUpdated
+	connectedRoomsDeleted
+	getAllAddedParticipants
+	broadcastToRoom
+	kick
+	kickAll
+	transcript
+	getWaitingRoomRequests
+	acceptWaitingRoomRequests
+	waitingRoomRequestAccepted
+	denyWaitingRoomRequests
+	waitingRoomRequestDenied
+	peerStatusUpdate
 )
 
 const (
@@ -72,46 +100,32 @@ const (
 
 func GetEventTypeName(eventID int32) string {
 	// Extract domain and specific event parts
-	domain := GetDomainEvent(eventID)
-	specificEvent := GetDomainSpecificEvent(eventID)
+	domain := eventID >> 16
+	specificEvent := eventID & 0xffff
 
 	var domainName, eventName string
 
 	switch domain {
 	case roomMessage:
 		domainName = "roomMessage"
-		eventName = 
-getRoomMessageEventName(specificEvent)
+		eventName = getRoomMessageEventName(specificEvent)
 	case chatMessage:
 		domainName = "chatMessage"
-		eventName = 
-getChatMessageEventName(specificEvent)
+		eventName = getChatMessageEventName(specificEvent)
 	case pluginMessage:
 		domainName = "pluginMessage"
-		eventName = 
-getPluginMessageEventName(specificEvent)
+		eventName = getPluginMessageEventName(specificEvent)
 	case pollMessage:
 		domainName = "pollMessage"
-		eventName = 
-getPollMessageEventName(specificEvent)
+		eventName = getPollMessageEventName(specificEvent)
 	case chatChannelMessage:
 		domainName = "chatChannelMessage"
-		eventName = 
-getChatChannelMessageEventName(specificEvent)
+		eventName = getChatChannelMessageEventName(specificEvent)
 	default:
 		return "Unknown event"
 	}
 
-	return fmt.Sprintf("Event: %s, Specific Event: %s", 
-domainName, eventName)
-}
-
-func GetDomainEvent(eventID int32) int32 {
-	return eventID >> 16
-}
-
-func GetDomainSpecificEvent(eventID int32) int32 {
-	return eventID & 0xffff
+	return fmt.Sprintf("Event: %s, Specific Event: %s", domainName, eventName)
 }
 
 func getRoomMessageEventName(eventID int32) string {
@@ -132,6 +146,62 @@ func getRoomMessageEventName(eventID int32) string {
 		return "updateRoomInfo"
 	case closeRoom:
 		return "closeRoom"
+	case getStagePeers:
+		return "getStagePeers"
+	case getStageRequests:
+		return "getStageRequests"
+	case requestStageAccess:
+		return "requestStageAccess"
+	case cancelStageRequest:
+		return "cancelStageRequest"
+	case grantStageAccess:
+		return "grantStageAccess"
+	case denyStageAccess:
+		return "denyStageAccess"
+	case roomCountBroadcast:
+		return "roomCountBroadcast"
+	case joinStage:
+		return "joinStage"
+	case leaveStage:
+		return "leaveStage"
+	case getConnectedRoomsDump:
+		return "getConnectedRoomsDump"
+	case createConnectedRooms:
+		return "createConnectedRooms"
+	case deleteConnectedRooms:
+		return "deleteConnectedRooms"
+	case movePeers:
+		return "movePeers"
+	case transferPeer:
+		return "transferPeer"
+	case movedPeer:
+		return "movedPeer"
+	case connectedRoomsUpdated:
+		return "connectedRoomsUpdated"
+	case connectedRoomsDeleted:
+		return "connectedRoomsDeleted"
+	case getAllAddedParticipants:
+		return "getAllAddedParticipants"
+	case broadcastToRoom:
+		return "broadcastToRoom"
+	case kick:
+		return "kick"
+	case kickAll:
+		return "kickAll"
+	case transcript:
+		return "transcript"
+	case getWaitingRoomRequests:
+		return "getWaitingRoomRequests"
+	case acceptWaitingRoomRequests:
+		return "acceptWaitingRoomRequests"
+	case waitingRoomRequestAccepted:
+		return "waitingRoomRequestAccepted"
+	case denyWaitingRoomRequests:
+		return "denyWaitingRoomRequests"
+	case waitingRoomRequestDenied:
+		return "waitingRoomRequestDenied"
+	case peerStatusUpdate:
+		return "peerStatusUpdate"
 	default:
 		return "Unknown roomMessage event"
 	}
@@ -228,4 +298,3 @@ func getChatChannelMessageEventName(eventID int32) string {
 		return "Unknown chatChannelMessage event"
 	}
 }
-

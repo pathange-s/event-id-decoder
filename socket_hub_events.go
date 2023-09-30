@@ -1,8 +1,8 @@
 package eventdecoder
 
-import "fmt"
-
+// Socket Hub events
 const (
+	// RoomMessage events
 	roomMessage = iota
 	chatMessage
 	pluginMessage
@@ -101,10 +101,10 @@ const (
 	updateChatChannel
 )
 
-func GetEventTypeName(eventID int32) string {
+func getSocketHubDomainAndEventName(eventID int32) (string, string) {
 	// Extract domain and specific event parts
-	domain := eventID >> 16
-	specificEvent := eventID & 0xffff
+	domain := eventID >> 16 & 0xFF
+	specificEvent := eventID & 0xFFFF
 
 	var domainName, eventName string
 
@@ -125,10 +125,10 @@ func GetEventTypeName(eventID int32) string {
 		domainName = "chatChannelMessage"
 		eventName = getChatChannelMessageEventName(specificEvent)
 	default:
-		return "Unknown event"
+		return "Unknown Domain", "Unknown Event"
 	}
 
-	return fmt.Sprintf("%s.%s", domainName, eventName)
+	return domainName, eventName
 }
 
 func getRoomMessageEventName(eventID int32) string {

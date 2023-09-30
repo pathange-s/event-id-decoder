@@ -128,7 +128,7 @@ func GetEventTypeName(eventID int32) string {
 		return "Unknown event"
 	}
 
-	return fmt.Sprintf("Event: %s, Specific Event: %s", domainName, eventName)
+	return fmt.Sprintf("%s.%s", domainName, eventName)
 }
 
 func getRoomMessageEventName(eventID int32) string {
